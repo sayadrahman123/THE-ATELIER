@@ -1,0 +1,139 @@
+# ============================================================
+#  THE ATELIER — Root .gitignore
+#  Covers: Frontend (React/Vite) + Backend (Spring Boot/Maven)
+# ============================================================
+
+# ──────────────────────────────────────────────
+# Environment & Secrets  (NEVER commit these)
+# ──────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.local
+
+# ──────────────────────────────────────────────
+# Frontend — Node / Vite / React
+# ──────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+
+# Frontend logs
+frontend/logs/
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# ──────────────────────────────────────────────
+# Backend — Java / Spring Boot / Maven
+# ──────────────────────────────────────────────
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/*.class
+backend/*.jar
+backend/*.war
+backend/*.ear
+
+# Spring Boot application secrets
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-secret.properties
+
+# Maven wrapper (keep mvnw script, ignore binary)
+!backend/.mvn/wrapper/maven-wrapper.properties
+
+# ──────────────────────────────────────────────
+# IDEs & Editors
+# ──────────────────────────────────────────────
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Eclipse
+.classpath
+.project
+.settings/
+*.prefs
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# ──────────────────────────────────────────────
+# Operating System
+# ──────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+# ──────────────────────────────────────────────
+# Logs & Temp Files
+# ──────────────────────────────────────────────
+*.log
+*.pid
+*.seed
+*.pid.lock
+logs/
+tmp/
+temp/
+
+# ──────────────────────────────────────────────
+# Dependency Locks (keep frontend's)
+# ──────────────────────────────────────────────
+# backend lock files are not needed
+backend/*.lock
+
+# ──────────────────────────────────────────────
+# Build & Coverage
+# ──────────────────────────────────────────────
+coverage/
+*.lcov
+.nyc_output/
+junit*.xml
+
+# ──────────────────────────────────────────────
+# Docker (for future use)
+# ──────────────────────────────────────────────
+# Uncomment when Docker is added:
+# docker-compose.override.yml
+
+# ──────────────────────────────────────────────
+# Misc
+# ──────────────────────────────────────────────
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.bak
+*.orig

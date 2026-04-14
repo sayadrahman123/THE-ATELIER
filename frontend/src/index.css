@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-body text-on-surface antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    @apply bg-secondary-fixed;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    user-select: none;
+  }
+
+  /* Gold shimmer gradient button */
+  .gold-shimmer {
+    background: linear-gradient(45deg, #775a19, #e9c176);
+  }
+
+  /* Editorial drop shadow */
+  .editorial-shadow {
+    box-shadow: 0 20px 40px rgba(26, 28, 28, 0.05);
+  }
+
+  /* Ghost border input — bottom border only, gold on focus */
+  .ghost-border {
+    border-bottom: 1px solid rgba(196, 199, 199, 0.4);
+    transition: border-color 0.2s ease;
+  }
+
+  .ghost-border:focus-within {
+    border-bottom: 2px solid #775a19;
+  }
+
+  /* Glass navbar effect */
+  .glass-nav {
+    background: rgba(249, 249, 249, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  /* Ambient shadow card */
+  .ambient-shadow {
+    box-shadow: 0 20px 40px rgba(26, 28, 28, 0.05);
+  }
+
+  /* Serif italic utility */
+  .serif-italic {
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+  }
+}
+
+@layer utilities {
+  .tracking-ultra {
+    letter-spacing: 0.4em;
+  }
+
+  .tracking-wider-custom {
+    letter-spacing: 0.3em;
+  }
+}

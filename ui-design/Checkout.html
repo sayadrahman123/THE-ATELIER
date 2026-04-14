@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | THE ATELIER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#785a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#928265",
+                    "on-surface-variant": "#444748",
+                    "on-secondary-fixed": "#261900",
+                    "background": "#f9f9f9",
+                    "surface-tint": "#5f5e5e",
+                    "on-tertiary-fixed": "#241a06",
+                    "primary-container": "#1c1b1b",
+                    "tertiary-container": "#241a06",
+                    "on-background": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#52452c",
+                    "surface": "#f9f9f9",
+                    "tertiary-fixed-dim": "#d7c4a4",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "tertiary": "#000000",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c4c7c7",
+                    "secondary-fixed": "#ffdea5",
+                    "tertiary-fixed": "#f4e0be",
+                    "surface-container-highest": "#e2e2e2",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#c8c6c5",
+                    "secondary-fixed-dim": "#e9c176",
+                    "secondary": "#775a19",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#2f3131",
+                    "secondary-container": "#fed488",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface-variant": "#e2e2e2",
+                    "on-primary-container": "#858383",
+                    "on-error": "#ffffff",
+                    "outline": "#747878",
+                    "on-primary-fixed-variant": "#474646",
+                    "primary-fixed": "#e5e2e1",
+                    "on-surface": "#1a1c1c",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(24px);
+        }
+        .gold-gradient-btn {
+            background: linear-gradient(45deg, #775a19, #e9c176);
+        }
+        input:focus + label, input:not(:placeholder-shown) + label {
+            transform: translateY(-1.5rem) scale(0.85);
+            color: #775a19;
+        }
+        .ghost-border {
+            border-bottom: 1px solid rgba(196, 199, 197, 0.4);
+        }
+        .ghost-border:focus-within {
+            border-bottom: 2px solid #775a19;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<nav class="fixed top-0 w-full z-50 glass-header shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-widest text-stone-900 dark:text-stone-50 font-headline">THE ATELIER</div>
+<div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] tracking-tight">
+<a class="text-stone-500 hover:text-stone-800 transition-colors" href="#">Shop</a>
+<a class="text-stone-500 hover:text-stone-800 transition-colors" href="#">Collections</a>
+<a class="text-stone-500 hover:text-stone-800 transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="cursor-pointer transition-all active:scale-95 text-stone-900">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="cursor-pointer transition-all active:scale-95 text-stone-900">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-screen-xl mx-auto">
+<header class="mb-16">
+<h1 class="text-5xl font-headline font-bold text-primary tracking-tight mb-4">Checkout</h1>
+<nav class="flex space-x-4 text-sm font-label tracking-widest uppercase text-outline">
+<span class="text-secondary">01 Shipping</span>
+<span>/</span>
+<span>02 Payment</span>
+<span>/</span>
+<span>03 Review</span>
+</nav>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+<!-- Left Column: Checkout Flow -->
+<div class="lg:col-span-7 space-y-16">
+<!-- Section: Shipping Information -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-headline font-bold">Shipping Information</h2>
+</div>
+<form class="space-y-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="relative ghost-border transition-all duration-300">
+<input class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface" id="first_name" placeholder=" " type="text"/>
+<label class="absolute top-3 left-0 -z-10 origin-[0] transition-all duration-300 text-outline-variant font-label text-sm uppercase tracking-wider" for="first_name">First Name</label>
+</div>
+<div class="relative ghost-border transition-all duration-300">
+<input class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface" id="last_name" placeholder=" " type="text"/>
+<label class="absolute top-3 left-0 -z-10 origin-[0] transition-all duration-300 text-outline-variant font-label text-sm uppercase tracking-wider" for="last_name">Last Name</label>
+</div>
+</div>
+<div class="relative ghost-border transition-all duration-300">
+<input class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface" id="address" placeholder=" " type="text"/>
+<label class="absolute top-3 left-0 -z-10 origin-[0] transition-all duration-300 text-outline-variant font-label text-sm uppercase tracking-wider" for="address">Street Address</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="relative ghost-border transition-all duration-300">
+<input class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface" id="city" placeholder=" " type="text"/>
+<label class="absolute top-3 left-0 -z-10 origin-[0] transition-all duration-300 text-outline-variant font-label text-sm uppercase tracking-wider" for="city">City</label>
+</div>
+<div class="relative ghost-border transition-all duration-300">
+<input class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface" id="postal" placeholder=" " type="text"/>
+<label class="absolute top-3 left-0 -z-10 origin-[0] transition-all duration-300 text-outline-variant font-label text-sm uppercase tracking-wider" for="postal">Postal Code</label>
+</div>
+<div class="relative ghost-border transition-all duration-300">
+<select class="block w-full py-3 bg-transparent border-none focus:ring-0 text-on-surface appearance-none" id="country">
+<option>United Kingdom</option>
+<option>United States</option>
+<option>France</option>
+</select>
+<label class="absolute -top-6 left-0 text-secondary font-label text-[10px] uppercase tracking-[0.2em]" for="country">Country</label>
+</div>
+</div>
+</form>
+</section>
+<!-- Section: Delivery Method (Surface Tonal Shift) -->
+<section class="bg-surface-container-low p-8 md:p-12">
+<h2 class="text-2xl font-headline font-bold mb-8">Delivery Method</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Option 1 -->
+<label class="group relative cursor-pointer">
+<input checked="" class="sr-only peer" name="delivery" type="radio"/>
+<div class="p-6 bg-surface-container-lowest border-2 border-transparent peer-checked:border-secondary transition-all flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-label font-bold uppercase tracking-widest">Standard Atelier</span>
+<span class="text-sm font-bold">Free</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Delivered in our signature charcoal box within 3-5 business days.</p>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="group relative cursor-pointer">
+<input class="sr-only peer" name="delivery" type="radio"/>
+<div class="p-6 bg-surface-container-lowest border-2 border-transparent peer-checked:border-secondary transition-all flex flex-col h-full opacity-60 peer-checked:opacity-100">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-label font-bold uppercase tracking-widest">Express Courier</span>
+<span class="text-sm font-bold">£25.00</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Priority handling and delivery within 24 hours of dispatch.</p>
+</div>
+</label>
+</div>
+</section>
+<div class="flex justify-end pt-8">
+<button class="gold-gradient-btn text-on-secondary px-12 py-5 font-label font-bold uppercase tracking-[0.2em] shadow-lg hover:opacity-90 transition-all active:scale-95">
+                        Proceed to Payment
+                    </button>
+</div>
+</div>
+<!-- Right Column: Order Summary (Sticky Sidebar) -->
+<aside class="lg:col-span-5">
+<div class="sticky top-32 space-y-8">
+<div class="bg-surface-container-lowest p-8 md:p-10 shadow-[0_20px_40px_rgba(26,28,28,0.05)]">
+<h3 class="text-xl font-headline font-bold mb-8 border-b border-surface-container-high pb-4 uppercase tracking-widest">Order Review</h3>
+<!-- Product Item 1 -->
+<div class="flex items-start space-x-6 mb-8">
+<div class="w-24 h-32 flex-shrink-0 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a luxury silk blouse in ivory hanging against a minimalist dark grey wall with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFTaniN4N83rYQpE__o4HHK8yUyKZrqio7NRBCatkg9kOlMoizIlK8YCTFS3ditum6xBep1agGEJRy63pgqtd4WCqPrFIB3aafoyK5wAi84c1LjRlgmPKh3FobEGb9HAf0qAesl8-gPZUC4_M9xicaE097Sa7vXQv0NZBiX9uwzeSJd8N1n5hKhk2L1Zcu8SV-h3i7pCbw5PMP0JQGOqOJAONyDqCaPmoVMiw2UsvwCJzSr8DEHTFTNTVyQf28eQ1w6Hs20vdF6nvX"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between">
+<h4 class="text-sm font-bold uppercase tracking-wide text-on-surface">Silk Drape Blouse</h4>
+<span class="text-sm font-medium">£420.00</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1 uppercase tracking-tighter">Size: M | Color: Ivory</p>
+<p class="text-xs text-on-surface-variant mt-1">Qty: 1</p>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="flex items-start space-x-6 mb-10">
+<div class="w-24 h-32 flex-shrink-0 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-end leather handbag with gold hardware detail on a clean white stone pedestal in soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwSnZarFdrtz7CZCkKnHqBwoAVeeX1dPkdEldBNCXYdvtDCCrbggD5AKukuw0fhJMMuMObUK9uoUbrUUipeSMxdXecbuwdutG3J-YLGdGHiO4rsauAYff3_pPSJpQHlZOS4J-y3yALVFLIGZd6mFiGTzO2rfM92xAjoRLjSczDkAZ8awKYQxBJNdDIiIb-6Sk41KVwQF67TEhXkQlvc5dkg_YAMnBLBEBCdtXPqDD_ed3DOp0hJ5iK22rGymWpNkWnKhi2eHA3hknH"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between">
+<h4 class="text-sm font-bold uppercase tracking-wide text-on-surface">Sculpted Totem Bag</h4>
+<span class="text-sm font-medium">£1,250.00</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1 uppercase tracking-tighter">Color: Onyx</p>
+<p class="text-xs text-on-surface-variant mt-1">Qty: 1</p>
+</div>
+</div>
+<!-- Totals -->
+<div class="space-y-4 pt-8 border-t border-surface-container-high">
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Subtotal</span>
+<span>£1,670.00</span>
+</div>
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Shipping</span>
+<span>Complementary</span>
+</div>
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Estimated Tax</span>
+<span>£334.00</span>
+</div>
+<div class="flex justify-between text-xl font-bold font-headline pt-4 border-t border-surface-container-high">
+<span>Total</span>
+<span>£2,004.00</span>
+</div>
+</div>
+</div>
+<!-- Assistance Card -->
+<div class="p-8 border border-outline-variant/20 bg-transparent text-center">
+<p class="text-xs font-label uppercase tracking-[0.2em] text-on-surface-variant mb-2">Need Assistance?</p>
+<p class="text-sm font-medium">Concierge: +44 20 7946 0123</p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer (Shared Component Strategy) -->
+<footer class="w-full pt-20 pb-10 bg-stone-100 dark:bg-zinc-900 font-['Inter'] text-sm tracking-wide">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-screen-2xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-bold tracking-widest text-stone-900 dark:text-stone-50">THE ATELIER</div>
+<p class="text-stone-500 max-w-xs leading-relaxed">Curation of timeless elegance and contemporary craftsmanship for the modern digital editorial era.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-stone-900 dark:text-stone-50 uppercase tracking-widest text-xs">Customer Care</h4>
+<ul class="space-y-2 text-stone-500">
+<li><a class="hover:text-stone-900 transition-colors" href="#">Contact</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Shipping</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Returns</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-stone-900 dark:text-stone-50 uppercase tracking-widest text-xs">About Us</h4>
+<ul class="space-y-2 text-stone-500">
+<li><a class="hover:text-stone-900 transition-colors" href="#">Story</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Sustainability</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Journal</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-stone-900 dark:text-stone-50 uppercase tracking-widest text-xs">Legal</h4>
+<ul class="space-y-2 text-stone-500">
+<li><a class="hover:text-stone-900 transition-colors" href="#">Privacy</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+<div class="px-8 max-w-screen-2xl mx-auto pt-16 text-stone-400 text-[10px] tracking-[0.3em] uppercase">
+            © 2024 THE ATELIER. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+</body></html>

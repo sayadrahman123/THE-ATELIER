@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#785a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#928265",
+                    "on-surface-variant": "#444748",
+                    "on-secondary-fixed": "#261900",
+                    "background": "#f9f9f9",
+                    "surface-tint": "#5f5e5e",
+                    "on-tertiary-fixed": "#241a06",
+                    "primary-container": "#1c1b1b",
+                    "tertiary-container": "#241a06",
+                    "on-background": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#52452c",
+                    "surface": "#f9f9f9",
+                    "tertiary-fixed-dim": "#d7c4a4",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "tertiary": "#000000",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c4c7c7",
+                    "secondary-fixed": "#ffdea5",
+                    "tertiary-fixed": "#f4e0be",
+                    "surface-container-highest": "#e2e2e2",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#c8c6c5",
+                    "secondary-fixed-dim": "#e9c176",
+                    "secondary": "#775a19",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#2f3131",
+                    "secondary-container": "#fed488",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface-variant": "#e2e2e2",
+                    "on-primary-container": "#858383",
+                    "on-error": "#ffffff",
+                    "outline": "#747878",
+                    "on-primary-fixed-variant": "#474646",
+                    "primary-fixed": "#e5e2e1",
+                    "on-surface": "#1a1c1c",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(26, 28, 28, 0.05);
+        }
+        .gold-shimmer {
+            background: linear-gradient(45deg, #775a19, #e9c176);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-stone-50/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-bold tracking-widest text-stone-900 dark:text-stone-50 font-['Noto_Serif']" href="#">THE ATELIER</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-stone-900 dark:text-stone-50 border-b border-stone-900 dark:border-stone-50 pb-1 font-['Noto_Serif'] tracking-tight cursor-pointer transition-all active:scale-95" href="#">Shop</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors font-['Noto_Serif'] tracking-tight cursor-pointer transition-all active:scale-95" href="#">Collections</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors font-['Noto_Serif'] tracking-tight cursor-pointer transition-all active:scale-95" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center border-b border-outline-variant/40 py-1 px-2">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-stone-400" placeholder="Search our archives" type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="hover:opacity-70 transition-opacity duration-300 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-stone-900" data-icon="person">person</span>
+</button>
+<button class="hover:opacity-70 transition-opacity duration-300 cursor-pointer active:scale-95 relative">
+<span class="material-symbols-outlined text-stone-900" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+</div>
+</div>
+</nav>
+</header>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative h-[921px] min-h-[600px] flex items-center px-8 md:px-20 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Luxury interior" class="w-full h-full object-cover object-center" data-alt="Minimalist high-end atelier interior with soft natural light filtering through sheer curtains and a single designer chair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBayevTCcuyDHYC5fJ03entLvIXEZqmGw-W3Yx00AdQ9iGnqdYaXRcUj78jq6l_dGk31yjt55KQON5KE6qIvRrk_iZt_1FqZMg3dIv90Zt36ruOjDdhiOwIKxY5BUVxhqYq6xhN-drEwxPb9AR6H6hUiPXiGVmK0rTmo_1GbcDEU4LPVd1Rdc9CDmI4U9JEIPmOg83b7YtOgtNRE-eAC1oYwpXmgOwHYM-yLgITtKyjtif6e3wmW0pz0FGOww35FEFutAO26sS4nwH9"/>
+<div class="absolute inset-0 bg-stone-900/10"></div>
+</div>
+<div class="relative z-10 max-w-3xl">
+<p class="font-label text-xs uppercase tracking-[0.4em] mb-6 text-on-surface-variant">Autumn / Winter '24</p>
+<h1 class="text-6xl md:text-8xl font-headline font-bold leading-tight mb-8 text-on-surface">
+                    The Silent <br/>
+<span class="italic font-normal">Symphony</span>
+</h1>
+<p class="text-lg md:text-xl text-on-surface-variant mb-10 max-w-lg leading-relaxed">
+                    A curated selection of objects and apparel that bridge the gap between architectural precision and artisanal warmth.
+                </p>
+<div class="flex gap-6 items-center">
+<a class="px-10 py-4 bg-primary text-on-primary font-label text-sm uppercase tracking-widest hover:bg-secondary transition-colors duration-300" href="#">Shop Now</a>
+<a class="text-primary font-label text-sm uppercase tracking-widest border-b border-secondary pb-1" href="#">View Lookbook</a>
+</div>
+</div>
+</section>
+<!-- Curated Collections - Bento Style Asymmetry -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-20">
+<div class="max-w-xl">
+<h2 class="text-4xl md:text-5xl font-headline mb-6">Seasonal Fragments</h2>
+<p class="text-on-surface-variant leading-relaxed">Our collections are released in small, intentional chapters. Each piece is numbered and crafted for longevity.</p>
+</div>
+<a class="hidden md:block text-stone-400 hover:text-primary transition-colors py-2 group" href="#">
+                    Explore all collections <span class="inline-block transition-transform group-hover:translate-x-2">→</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[1200px] md:h-[800px]">
+<!-- Item 1 -->
+<div class="md:col-span-8 group relative overflow-hidden bg-surface-container-low">
+<img alt="Woman in beige coat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Editorial fashion photography of a woman in a structured beige wool coat against a textured limestone wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7MwWy8Aqi1EkITenj29zOQ8PsD_1pfxT4C6vvZR-IGJDlFFKFKxbzIWLNvLB-WIDbdUYABBPf63rGS7FN_2Aqk0sqMwk8PxJRV1IkrOJEov3knJhqo2TOSpKCcPd77O7LeYOIgQh9Obg0QL4RNdT_9rWEe94yY6Ssb-7f1MG9nxUeOBQTPpRdvoNRkqzV_rn3ZFt7XzkcieBZqk16_3AaFAyz1IAc-iBxDSUoH8xJMuwHqZ83qOoJo1LNZAQKQ0mOkQN8qwHs65a2"/>
+<div class="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent"></div>
+<div class="absolute bottom-10 left-10 text-white">
+<span class="text-[10px] uppercase tracking-[0.3em] mb-2 block">Chapter I</span>
+<h3 class="text-3xl font-headline mb-4">Neutral Geometry</h3>
+<a class="text-sm border-b border-white pb-1" href="#">Discover</a>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="md:col-span-4 grid grid-rows-2 gap-6">
+<div class="group relative overflow-hidden bg-surface-container-low">
+<img alt="Luxury fabrics" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up detail of high-quality silk and cashmere fabrics neatly folded in warm tonal shades" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB99EbjRtT8JomS2ugvKuXWwZwGNw6fgxMaIzdjSlTmfAzscje7SCqAppa3HquHXH70umzy6nCXgxQsHq68qOIIoZF2S_Gip7Yqo_1chR0BZaH5AD_T0czlGOt6MsSvT-5mR5e74k8E72dZOt2kadQQWFvmL9jj-Ef3KEICsQiCUZ0qivsaBYTuZVm86r_TcIPilZSj4anO5B_4Rlc3sLOzmZT9MuOH3YEMBrQuFHsbi5R0roO7TpUfy9QggWwZPLhuj7YJ6AbLVNCH"/>
+<div class="absolute inset-0 bg-stone-900/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-white text-xs uppercase tracking-widest px-4 py-2 border border-white">Textiles</span>
+</div>
+</div>
+<div class="group relative overflow-hidden bg-surface-container-low">
+<img alt="Ceramic vases" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Collection of handcrafted matte ceramic vases on a dark wooden console table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_p_rLwlcpnLI5By0r9qzk7sm_yimnh1uYK39KTTi_AIFt-2LmN88ncX2N6SDYNEK_12ixdhJRBRqudvR3dGyos7W9SxOXyTEnZuK1jT_Tj36nfXtG8yi-8aQ561pvgy5ZwEKroLLmUf4OkU2MKVihjzQvA1FpwU1M_b9figZB-4kU7Q3konnqcDk-Of_tuYBtf-U6mQbh6fOHAhC8CHZsSCCedlgB78pKVQCmFF86vRlwxgNX8W47nx2GrgEPDlUH5GSsJP_eeq7u"/>
+<div class="absolute inset-0 bg-stone-900/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-white text-xs uppercase tracking-widest px-4 py-2 border border-white">Objets</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="text-center mb-20">
+<h2 class="text-4xl font-headline mb-4">Essential Artifacts</h2>
+<div class="w-12 h-px bg-secondary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-lowest editorial-shadow">
+<img alt="Overcoat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Premium charcoal grey overcoat on a minimalist wooden hanger against a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdFAd7XS-koYhtWN05dTqNAhJdTWh6n3HZy_oZ3zi81qyP5xulerjmpvn7EwRLW5_u9oMcaHHWtVJEce1BolVwqhdCbaOwEtnOgQcgzC3xC_jsWFUpAOiKiL_ga9BLYWhdImxGvIsUYV1L2ci6R9LGk9Ftx_qhXCkH_YepKSSPV5jSrXpKAIgCwSLpow_Tkw8KeG6k5yt7S3u_y-GAGNuR_vUGL8MJNcIj7ii29mlDbivex-vtfHjv3gR5LNmW5yEFcdvd9z5Ynp2w"/>
+<div class="absolute top-4 left-4">
+<span class="bg-surface-container-lowest px-3 py-1 text-[10px] uppercase tracking-widest">New</span>
+</div>
+<div class="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-surface/90 backdrop-blur-md">
+<button class="w-full py-3 gold-shimmer text-on-secondary font-label text-xs uppercase tracking-widest">Quick Add</button>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="text-primary font-medium tracking-tight">Structured Wool Overcoat</h4>
+<p class="text-on-surface-variant text-sm">Signature Charcoal</p>
+<p class="text-primary pt-2">$1,250</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-lowest editorial-shadow">
+<img alt="Leather bag" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Handcrafted dark brown leather tote bag with subtle metallic hardware on a stone surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-Bp0jN93WotAEs5EIGsXVz08F8H3h0O11ZV7Lg4xwJkTzq9U_OW02XhEsw6Z9YfvOjWHhT4YcL-It0SFWjpYbIc-9t6vK9jEJfbTkaxUN1lbtVkRdJzdIQb-3yifqfVwEYQyfYPeHgaZY7hJULQcsLqzNpt5jXlXc0ZScGvDrpK2wUqG0Z-gBcsqRZOc8Ky8N3RmDxO1fzksDeL7jrItJBfVnBf5iw_9vc7yzKh9mE7LzODcAu-_-BMfpzRp6PDKnFxXJjv4fY6uM"/>
+<div class="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-surface/90 backdrop-blur-md">
+<button class="w-full py-3 gold-shimmer text-on-secondary font-label text-xs uppercase tracking-widest">Quick Add</button>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="text-primary font-medium tracking-tight">The Archival Tote</h4>
+<p class="text-on-surface-variant text-sm">Grained Calfskin</p>
+<p class="text-primary pt-2">$890</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-lowest editorial-shadow">
+<img alt="Silk Scarf" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Delicate silk scarf with hand-painted abstract patterns draped over a marble bust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYfwHj6-rmeQur7vmuGJ9j1qarDKed9oi88JM2xM6Yy2v1hgiZ_Pugy-MhvQW1WQtffL8PVv5De8Rt2rV8ecAcdpn-OXF0zprI3SzC4HowSPtw0A7njqVU-5bCqXlIhuGqY4y4f65eh323mvelzQXo3PLtxudj4DRKEGTYfJEj3kMs8_XbZgnbRyCYX68U_YdKPU9wze3RCcvk-aQ9Apb3sC14ArZ-Wb8xl78lybqmqKLL17JWy9qOpo9jW-UKzisYEeD7MoYB-zGl"/>
+<div class="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-surface/90 backdrop-blur-md">
+<button class="w-full py-3 gold-shimmer text-on-secondary font-label text-xs uppercase tracking-widest">Quick Add</button>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="text-primary font-medium tracking-tight">Ethereal Silk Square</h4>
+<p class="text-on-surface-variant text-sm">Hand-rolled Edges</p>
+<p class="text-primary pt-2">$240</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-lowest editorial-shadow">
+<img alt="Leather sneakers" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Minimalist off-white leather sneakers with gum sole on a clean concrete background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxU-D_k5eVcWYQTNyE4e3opC3bTVWogUkvbNhkIkVLkIFpKQI3bBGHh4cYumLO0hQUCgLcXx34jsi7tlXKZWSRvbQ_fDWXO1FNRGnZrNFMoZj1dIGrn6VEtG13FsWrOFCKT37Um-3wpe9QZ1cQ9SgNFe_uaJTOPsAklnhNhAx2dXicNronDtOodV0DOSkS0EP5uv-suqSN6SJHRU3381HfvmjHYVkk3PDjV6S2DLLn_zgAuVrIXNPqXV1TANc5AUThDpCZJlnjqn0t"/>
+<div class="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-surface/90 backdrop-blur-md">
+<button class="w-full py-3 gold-shimmer text-on-secondary font-label text-xs uppercase tracking-widest">Quick Add</button>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="text-primary font-medium tracking-tight">Atelier Low Top</h4>
+<p class="text-on-surface-variant text-sm">Porcelain / Raw</p>
+<p class="text-primary pt-2">$420</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Storytelling -->
+<section class="py-40 px-8">
+<div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center gap-24">
+<div class="lg:w-1/2 relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary/5 -z-10"></div>
+<img alt="Craftsman at work" class="w-full editorial-shadow grayscale hover:grayscale-0 transition-all duration-1000" data-alt="Hands of an artisan carefully stitching leather in a sun-drenched studio filled with tools and sketches" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj6cWrLWfKiE-Tug0cu1vmBirpTk7ClqffehWrhJbxtCdeSxZ2ifQS7MMps2IBjdvI1aeKKMBYEe7DlbVv09rIwKv7I4DA3SHx0faxNi8CPNBv3y3FzXtrn9-L_OFokJz9diMF4o2fZ1wRW3y1AZXkwv1X1MA1HtRLN0zVGAJm5HsVEC6Oe4oM-iUuDbt3K7g-Pfhfckiox_GN5C7hmVi7OoJw26mmFR9Km-Vpt10hTyfSHAgPKXZTzK_RyS879cjd0b6e_SMgjdYh"/>
+</div>
+<div class="lg:w-1/2 space-y-8">
+<p class="font-label text-xs uppercase tracking-[0.4em] text-secondary">Our Philosophy</p>
+<h2 class="text-5xl font-headline leading-tight">Quiet Luxury, <br/>Vocal Craft.</h2>
+<p class="text-lg text-on-surface-variant leading-relaxed">
+                        At THE ATELIER, we believe that the objects we surround ourselves with define the quality of our days. Our process is intentionally slow. We partner with family-owned mills in Northern Italy and independent ceramicists in Japan to ensure every seam and glaze tells a story of human excellence.
+                    </p>
+<div class="pt-4">
+<a class="text-primary font-label text-sm uppercase tracking-widest group inline-flex items-center gap-3" href="#">
+                            Read the full story 
+                            <span class="w-8 h-px bg-primary transition-all group-hover:w-12"></span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="bg-primary text-on-primary py-32 text-center px-8">
+<div class="max-w-2xl mx-auto">
+<h2 class="text-4xl font-headline mb-6">Join The Circle</h2>
+<p class="text-primary-fixed-dim mb-12 font-body font-light">Be the first to receive invitation-only access to our limited collection drops and private editorial features.</p>
+<form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+<input class="flex-grow bg-transparent border-b border-white/20 focus:border-secondary focus:ring-0 text-white placeholder:text-white/40 py-3" placeholder="Your Email Address" type="email"/>
+<button class="bg-on-primary text-primary px-8 py-3 font-label text-xs uppercase tracking-widest hover:bg-secondary hover:text-white transition-colors">Subscribe</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-20 pb-10 bg-stone-100 dark:bg-zinc-900 font-['Inter'] text-sm tracking-wide text-stone-900 dark:text-stone-100">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-screen-2xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<h3 class="text-lg font-bold tracking-widest text-stone-900 dark:text-stone-50 mb-6">THE ATELIER</h3>
+<p class="text-stone-500 dark:text-stone-400 mb-6 leading-relaxed">Curating timeless aesthetics for the modern individual. A study in form, function, and luxury.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-stone-500 hover:text-stone-900 cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined text-stone-500 hover:text-stone-900 cursor-pointer" data-icon="public">public</span>
+<span class="material-symbols-outlined text-stone-500 hover:text-stone-900 cursor-pointer" data-icon="mail">mail</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold mb-6 uppercase text-xs tracking-widest">Collections</h4>
+<ul class="space-y-4 text-stone-500 dark:text-stone-400">
+<li><a class="hover:text-stone-900 transition-colors" href="#">The Archives</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">New Arrivals</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Limited Editions</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Atelier Goods</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 uppercase text-xs tracking-widest">Support</h4>
+<ul class="space-y-4 text-stone-500 dark:text-stone-400">
+<li><a class="hover:text-stone-900 transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Sustainability</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Size Guide</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 uppercase text-xs tracking-widest">Legal</h4>
+<ul class="space-y-4 text-stone-500 dark:text-stone-400">
+<li><a class="hover:text-stone-900 transition-colors" href="#">Privacy</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Terms</a></li>
+<li><a class="hover:text-stone-900 transition-colors" href="#">Cookie Policy</a></li>
+<li><a class="underline decoration-stone-400 text-stone-900" href="#">About</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-20 px-8 max-w-screen-2xl mx-auto border-t border-stone-200 dark:border-stone-800 pt-10 text-center md:text-left">
+<p class="text-stone-500 dark:text-stone-400 text-xs">© 2024 THE ATELIER. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+</body></html>
