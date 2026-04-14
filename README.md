@@ -197,7 +197,7 @@ Access token TTL: **15 minutes** | Refresh token TTL: **7 days**
   - [x] Product API — `/api/products`, `/api/products/{id}`, `/api/categories`
   - [x] Data Seeder — auto-populates 8 products on startup
   - [x] Order API — place order, view orders
-  - [ ] Razorpay payment integration
+  - [x] Razorpay payment integration (create order, HMAC-SHA256 verify, mark PAID)
 - [ ] **Phase 3** — Integration & Deployment
   - [ ] Connect React ↔ Spring Boot via Axios
   - [ ] Wire AuthContext & product pages to live API
