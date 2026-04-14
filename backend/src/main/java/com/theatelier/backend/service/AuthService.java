@@ -4,93 +4,101 @@ import com.theatelier.backend.dto.request.LoginRequest;
 import com.theatelier.backend.dto.request.RefreshTokenRequest;
 import com.theatelier.backend.dto.request.RegisterRequest;
 import com.theatelier.backend.dto.response.AuthResponse;
+import com.theatelier.backend.entity.RefreshToken;
 import com.theatelier.backend.entity.User;
 import com.theatelier.backend.exception.AuthException;
 import com.theatelier.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final UserRepository        userRepository;
+    private final PasswordEncoder       passwordEncoder;
+    private final JwtService            jwtService;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService   refreshTokenService;
 
-    // ── Register ─────────────────────────────────────────────────────────
+    // ── Register ──────────────────────────────────────────────────────────
 
+    @Transactional
     public AuthResponse register(RegisterRequest request) {
-        // Guard: duplicate email
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new AuthException("An account with this email already exists");
+            throw new AuthException("An account with this email already exists.");
         }
 
-        // Build and save user
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(User.Role.CUSTOMER)
                 .build();
-
         userRepository.save(user);
 
-        // Generate tokens
-        String accessToken  = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
-
-        return buildAuthResponse(user, accessToken, refreshToken);
+        return issueTokens(user);
     }
 
     // ── Login ─────────────────────────────────────────────────────────────
 
+    @Transactional
     public AuthResponse login(LoginRequest request) {
-        // Spring Security will throw BadCredentialsException if wrong
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AuthException("User not found"));
+                .orElseThrow(() -> new AuthException("User not found."));
 
-        String accessToken  = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
-
-        return buildAuthResponse(user, accessToken, refreshToken);
+        return issueTokens(user);
     }
 
-    // ── Refresh Token ─────────────────────────────────────────────────────
+    // ── Refresh ───────────────────────────────────────────────────────────
+    // 1. Verify + rotate the old opaque refresh token (DB lookup)
+    // 2. Issue new access JWT + new opaque refresh token
 
+    @Transactional
     public AuthResponse refresh(RefreshTokenRequest request) {
-        String email = jwtService.extractUsername(request.getRefreshToken());
+        // verifyAndRotate throws AuthException on invalid/expired/reused token
+        RefreshToken oldToken = refreshTokenService.verifyAndRotate(request.getRefreshToken());
+        User user = oldToken.getUser();
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AuthException("User not found"));
+        // Issue brand-new access JWT + new refresh token
+        return issueTokens(user);
+    }
 
-        if (!jwtService.isTokenValid(request.getRefreshToken(), user)) {
-            throw new AuthException("Refresh token is invalid or expired. Please log in again.");
-        }
+    // ── Logout ────────────────────────────────────────────────────────────
+    // Revoke the supplied refresh token in DB (access JWTs expire naturally).
 
-        String newAccessToken  = jwtService.generateToken(user);
-        String newRefreshToken = jwtService.generateRefreshToken(user);
+    @Transactional
+    public void logout(RefreshTokenRequest request) {
+        refreshTokenService.revokeToken(request.getRefreshToken());
+    }
 
-        return buildAuthResponse(user, newAccessToken, newRefreshToken);
+    // ── Logout All Devices ────────────────────────────────────────────────
+
+    @Transactional
+    public void logoutAll(String email) {
+        userRepository.findByEmail(email).ifPresent(refreshTokenService::revokeAllForUser);
     }
 
     // ── Private Helpers ───────────────────────────────────────────────────
 
-    private AuthResponse buildAuthResponse(User user, String accessToken, String refreshToken) {
+    private AuthResponse issueTokens(User user) {
+        String accessToken          = jwtService.generateToken(user);
+        RefreshToken refreshToken   = refreshTokenService.createRefreshToken(user);
+
+        log.info("Tokens issued for {}", user.getEmail());
+
         return AuthResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshToken)
+                .refreshToken(refreshToken.getToken())  // opaque UUID (not JWT)
                 .userId(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())

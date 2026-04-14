@@ -32,9 +32,8 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails, jwtExpiration);
     }
 
-    public String generateRefreshToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails, refreshExpiration);
-    }
+    // NOTE: Refresh tokens are now opaque UUIDs managed by RefreshTokenService (DB-backed).
+    // This service only issues short-lived ACCESS JWTs.
 
     private String generateToken(Map<String, Object> extraClaims,
                                   UserDetails userDetails,

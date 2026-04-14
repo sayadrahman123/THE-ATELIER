@@ -55,12 +55,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ── Logout ────────────────────────────────────────────────────────────
-  const logout = () => {
+  const logout = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    // Revoke server-side first (best-effort — don't block UI if it fails)
+    if (refreshToken) {
+      try { await authAPI.logout({ refreshToken }); } catch { /* ignore */ }
+    }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
     setUser(null);
-    dispatchAuthChange(); // → CartContext clears cart state
+    dispatchAuthChange(); // CartContext clears cart state
   };
 
   // ── Persist session ───────────────────────────────────────────────────

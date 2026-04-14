@@ -92,9 +92,11 @@ api.interceptors.response.use(
 
 // ── Auth API ──────────────────────────────────────────────────────────────
 export const authAPI = {
-  register: (data) => api.post('/api/auth/register', data),
-  login:    (data) => api.post('/api/auth/login', data),
-  refresh:  (data) => api.post('/api/auth/refresh', data),
+  register:   (data) => api.post('/api/auth/register', data),
+  login:      (data) => api.post('/api/auth/login', data),
+  refresh:    (data) => api.post('/api/auth/refresh', data),
+  logout:     (data) => api.post('/api/auth/logout', data),     // revoke single token
+  logoutAll:  ()     => api.post('/api/auth/logout-all'),        // revoke all sessions
 };
 
 // ── Product API ───────────────────────────────────────────────────────────

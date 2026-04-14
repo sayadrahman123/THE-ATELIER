@@ -42,6 +42,7 @@ backend/src/main/resources/application-prod.properties
 backend/src/main/resources/application-dev.properties
 backend/src/main/resources/application-local.properties
 backend/src/main/resources/application-secret.properties
+backend/src/main/resources/application.properties
 
 # Maven wrapper (keep mvnw script, ignore binary)
 !backend/.mvn/wrapper/maven-wrapper.properties

@@ -32,17 +32,19 @@ public class SecurityConfig {
             // Request authorization rules
             .authorizeHttpRequests(auth -> auth
                 // Public — Auth endpoints
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
+                // Logout only needs a valid refresh token (access token may be expired)
+                .requestMatchers("/api/auth/logout").permitAll()
 
                 // Public — Product & Category reads
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
 
-                // Protected — Orders require JWT
+                // Protected — Orders, Cart, Payment require JWT
                 .requestMatchers("/api/orders/**").authenticated()
-
-                // Protected — Razorpay payment endpoints
+                .requestMatchers("/api/cart/**").authenticated()
                 .requestMatchers("/api/payment/**").authenticated()
+                .requestMatchers("/api/auth/logout-all").authenticated()
 
                 // Everything else requires auth
                 .anyRequest().authenticated()
