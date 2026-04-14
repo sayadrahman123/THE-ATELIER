@@ -73,11 +73,18 @@ const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <Link
-              to="/auth"
-              className="hover:opacity-70 transition-opacity duration-300 active:scale-95"
-              title={user ? user.name : 'Sign In'}
+              to={user ? '/profile' : '/auth'}
+              className="hover:opacity-70 transition-opacity duration-300 active:scale-95 relative"
+              title={user ? `${user.name} — View Profile` : 'Sign In'}
             >
-              <span className="material-symbols-outlined text-stone-900">person</span>
+              <span className="material-symbols-outlined text-stone-900"
+                style={{ fontVariationSettings: user ? "'FILL' 1" : "'FILL' 0" }}>
+                person
+              </span>
+              {/* Green dot when logged in */}
+              {user && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
+              )}
             </Link>
 
             <Link

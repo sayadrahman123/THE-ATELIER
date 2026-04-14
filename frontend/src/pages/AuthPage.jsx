@@ -7,7 +7,9 @@ const AuthPage = () => {
   const { login, register, loading } = useAuth();
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [registerData, setRegisterData] = useState({ name: '', email: '' });
+  const [registerData, setRegisterData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [registerError, setRegisterError] = useState('');
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   const handleLogin = async (e) => {
@@ -20,8 +22,18 @@ const AuthPage = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const result = await register(registerData.name, registerData.email);
+    setRegisterError('');
+    if (registerData.password.length < 6) {
+      setRegisterError('Password must be at least 6 characters.');
+      return;
+    }
+    if (registerData.password !== registerData.confirmPassword) {
+      setRegisterError('Passwords do not match.');
+      return;
+    }
+    const result = await register(registerData.name, registerData.email, registerData.password);
     if (result.success) navigate('/');
+    else setRegisterError(result.error || 'Registration failed. Please try again.');
   };
 
   return (
@@ -161,6 +173,7 @@ const AuthPage = () => {
               </div>
 
               <form className="space-y-8" onSubmit={handleRegister}>
+                {/* Full Name */}
                 <div className="ghost-border py-2 flex items-center gap-3 group">
                   <span className="material-symbols-outlined text-outline group-focus-within:text-secondary transition-colors">person</span>
                   <input
@@ -172,6 +185,8 @@ const AuthPage = () => {
                     required
                   />
                 </div>
+
+                {/* Email */}
                 <div className="ghost-border py-2 flex items-center gap-3 group">
                   <span className="material-symbols-outlined text-outline group-focus-within:text-secondary transition-colors">alternate_email</span>
                   <input
@@ -183,13 +198,56 @@ const AuthPage = () => {
                     required
                   />
                 </div>
-                <div className="pt-4">
+
+                {/* Password */}
+                <div className="ghost-border py-2 flex items-center gap-3 group">
+                  <span className="material-symbols-outlined text-outline group-focus-within:text-secondary transition-colors">lock</span>
+                  <input
+                    className="w-full bg-transparent border-none p-0 focus:ring-0 text-on-surface placeholder:text-outline-variant font-body outline-none"
+                    placeholder="Password (min. 6 characters)"
+                    type={showRegisterPassword ? 'text' : 'password'}
+                    value={registerData.password}
+                    onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                    required
+                    minLength={6}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowRegisterPassword((v) => !v)}
+                    className="text-outline hover:text-secondary transition-colors flex-shrink-0"
+                    tabIndex={-1}
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      {showRegisterPassword ? 'visibility_off' : 'visibility'}
+                    </span>
+                  </button>
+                </div>
+
+                {/* Confirm Password */}
+                <div className="ghost-border py-2 flex items-center gap-3 group">
+                  <span className="material-symbols-outlined text-outline group-focus-within:text-secondary transition-colors">lock_reset</span>
+                  <input
+                    className="w-full bg-transparent border-none p-0 focus:ring-0 text-on-surface placeholder:text-outline-variant font-body outline-none"
+                    placeholder="Confirm Password"
+                    type={showRegisterPassword ? 'text' : 'password'}
+                    value={registerData.confirmPassword}
+                    onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
+                    required
+                  />
+                </div>
+
+                {/* Registration Error */}
+                {registerError && (
+                  <p className="text-xs text-error font-label tracking-wide">{registerError}</p>
+                )}
+
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={loading}
                     className="w-full bg-transparent border border-primary text-primary py-5 px-8 font-label font-bold tracking-[0.15em] uppercase hover:bg-primary hover:text-on-primary transition-all active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-60"
                   >
-                    Begin Registration
+                    {loading ? 'Creating Account...' : 'Begin Registration'}
                     <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-2">
                       arrow_forward
                     </span>
