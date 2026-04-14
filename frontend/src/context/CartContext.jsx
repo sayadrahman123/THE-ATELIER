@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
+const CART_STORAGE_KEY = 'atelier_cart';
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -9,7 +10,27 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+
+  // ── Initialize from localStorage ─────────────────────────────────────
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // ── Sync to localStorage whenever cart changes ────────────────────────
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+    } catch {
+      // Storage quota exceeded or private mode — fail silently
+    }
+  }, [cartItems]);
+
+  // ── Cart operations ───────────────────────────────────────────────────
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -50,7 +71,10 @@ export const CartProvider = ({ children }) => {
   const getCartTotal = () =>
     cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const clearCart = () => setCartItems([]);
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem(CART_STORAGE_KEY);
+  };
 
   return (
     <CartContext.Provider
