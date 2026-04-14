@@ -3,6 +3,11 @@ import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
+// Custom event to notify CartContext of auth state changes
+const AUTH_CHANGE_EVENT = 'atelier-auth-change';
+const dispatchAuthChange = () =>
+  window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error('useAuth must be used within AuthProvider');
@@ -10,18 +15,14 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(false);
 
   // ── Restore session from localStorage on mount ────────────────────────
   useEffect(() => {
     const stored = localStorage.getItem('user');
     if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch {
-        localStorage.clear();
-      }
+      try { setUser(JSON.parse(stored)); } catch { localStorage.clear(); }
     }
   }, []);
 
@@ -31,13 +32,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await authAPI.register({ name, email, password });
       _persistSession(data);
+      dispatchAuthChange(); // → CartContext merges guest cart
       return { success: true };
     } catch (err) {
       const message = err.response?.data?.message || 'Registration failed. Please try again.';
       return { success: false, error: message };
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   // ── Login ─────────────────────────────────────────────────────────────
@@ -46,13 +46,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await authAPI.login({ email, password });
       _persistSession(data);
+      dispatchAuthChange(); // → CartContext merges guest cart + loads DB cart
       return { success: true };
     } catch (err) {
       const message = err.response?.data?.message || 'Invalid email or password.';
       return { success: false, error: message };
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   // ── Logout ────────────────────────────────────────────────────────────
@@ -61,17 +60,18 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
     setUser(null);
+    dispatchAuthChange(); // → CartContext clears cart state
   };
 
-  // ── Persist tokens + user in localStorage ─────────────────────────────
+  // ── Persist session ───────────────────────────────────────────────────
   const _persistSession = (data) => {
-    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('accessToken',  data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
     const userInfo = {
-      id: data.userId,
-      name: data.name,
+      id:    data.userId,
+      name:  data.name,
       email: data.email,
-      role: data.role,
+      role:  data.role,
     };
     localStorage.setItem('user', JSON.stringify(userInfo));
     setUser(userInfo);

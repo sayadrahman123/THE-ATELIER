@@ -111,6 +111,16 @@ export const orderAPI = {
   getById: (id)   => api.get(`/api/orders/${id}`),
 };
 
+// ── Cart API ──────────────────────────────────────────────────────────────
+export const cartAPI = {
+  getCart:      ()           => api.get('/api/cart'),
+  addItem:      (data)       => api.post('/api/cart', data),
+  updateQty:    (id, qty)    => api.put(`/api/cart/${id}`, { quantity: qty }),
+  removeItem:   (id)         => api.delete(`/api/cart/${id}`),
+  clearCart:    ()           => api.delete('/api/cart'),
+  mergeCart:    (items)      => api.post('/api/cart/merge', items),
+};
+
 // ── Payment API ───────────────────────────────────────────────────────────
 export const paymentAPI = {
   createOrder: (data) => api.post('/api/payment/create-order', data),
