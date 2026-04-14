@@ -2,14 +2,13 @@ package com.theatelier.backend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,11 +40,11 @@ public class JwtService {
                                   UserDetails userDetails,
                                   long expiration) {
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .claims(extraClaims)                              // 0.12: claims() not setClaims()
+                .subject(userDetails.getUsername())               // 0.12: subject() not setSubject()
+                .issuedAt(new Date(System.currentTimeMillis()))   // 0.12: issuedAt() not setIssuedAt()
+                .expiration(new Date(System.currentTimeMillis() + expiration)) // 0.12: expiration()
+                .signWith(getSigningKey())                        // 0.12: key only, algorithm inferred
                 .compact();
     }
 
@@ -76,14 +75,16 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+        return Jwts.parser()                          // 0.12: parser() not parserBuilder()
+                .verifyWith(getSigningKey())           // 0.12: verifyWith() not setSigningKey()
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)             // 0.12: parseSignedClaims() not parseClaimsJws()
+                .getPayload();                        // 0.12: getPayload() not getBody()
     }
 
-    private Key getSigningKey() {
+    // ── Signing Key ───────────────────────────────────────────────────────
+
+    private SecretKey getSigningKey() {              // 0.12: returns SecretKey not Key
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
