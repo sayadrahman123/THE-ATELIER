@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getProductById, products } from '../data/products';
+import { productAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ui/ProductCard';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = getProductById(id);
   const { addToCart } = useCart();
 
+  const [product, setProduct] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]?.name || '');
+  const [selectedColor, setSelectedColor] = useState('');
   const [addedToBag, setAddedToBag] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setSelectedImage(0);
+    setSelectedSize(null);
+    productAPI.getById(id)
+      .then(({ data }) => {
+        setProduct(data);
+        setSelectedColor(data.colors?.[0]?.name || '');
+      })
+      .catch(() => setProduct(null))
+      .finally(() => setLoading(false));
+
+    // Fetch related products
+    productAPI.getAll({})
+      .then(({ data }) => setRelated(data.filter((p) => String(p.id) !== String(id)).slice(0, 4)))
+      .catch(() => {});
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-24">
+        <p className="font-headline text-2xl text-on-surface-variant animate-pulse">Loading...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -38,7 +66,7 @@ const ProductDetailPage = () => {
     setTimeout(() => setAddedToBag(false), 2000);
   };
 
-  const related = products.filter((p) => p.id !== product.id).slice(0, 4);
+  // related is now fetched from API above
 
   return (
     <div className="bg-surface">

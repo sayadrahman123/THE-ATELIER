@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
-import { products } from '../data/products';
-
-const featuredProducts = products.slice(0, 4);
+import { productAPI } from '../services/api';
 
 const HomePage = () => {
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+
+  useEffect(() => {
+    productAPI.getAll({})
+      .then(({ data }) => setFeaturedProducts(data.slice(0, 4)))
+      .catch(() => {});
+  }, []);
   return (
     <div className="bg-surface">
       {/* ── Hero Section ── */}

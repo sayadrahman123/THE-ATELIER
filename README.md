@@ -199,8 +199,8 @@ Access token TTL: **15 minutes** | Refresh token TTL: **7 days**
   - [x] Order API — place order, view orders
   - [x] Razorpay payment integration (create order, HMAC-SHA256 verify, mark PAID)
 - [ ] **Phase 3** — Integration & Deployment
-  - [ ] Connect React ↔ Spring Boot via Axios
-  - [ ] Wire AuthContext & product pages to live API
+  - [x] Connect React ↔ Spring Boot via Axios (`services/api.js` with JWT interceptor + auto-refresh)
+  - [x] Wire AuthContext & product pages to live API (Shop, Home, ProductDetail, Checkout, Payment)
   - [ ] Docker Compose setup
   - [ ] Production deployment
 

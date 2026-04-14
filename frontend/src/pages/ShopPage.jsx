@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
-import { products, categories } from '../data/products';
+import { productAPI } from '../services/api';
 
 const sortOptions = ['Featured', 'Price: Low to High', 'Price: High to Low', 'New Arrivals'];
 
@@ -10,15 +10,39 @@ const ShopPage = () => {
   const [activeSort, setActiveSort] = useState('Featured');
   const [priceRange, setPriceRange] = useState([0, 2000]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(['All']);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filtered = products
-    .filter((p) => activeCategory === 'All' || p.category === activeCategory)
-    .filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1])
-    .sort((a, b) => {
-      if (activeSort === 'Price: Low to High') return a.price - b.price;
-      if (activeSort === 'Price: High to Low') return b.price - a.price;
-      return 0;
-    });
+  // Fetch categories once
+  useEffect(() => {
+    productAPI.getCategories()
+      .then(({ data }) => setCategories(['All', ...data]))
+      .catch(() => {});
+  }, []);
+
+  // Fetch products whenever filters change
+  useEffect(() => {
+    setLoading(true);
+    const sortParam =
+      activeSort === 'Price: Low to High' ? 'price_asc' :
+      activeSort === 'Price: High to Low' ? 'price_desc' : undefined;
+
+    const params = {
+      category: activeCategory === 'All' ? undefined : activeCategory,
+      minPrice: priceRange[0] || undefined,
+      maxPrice: priceRange[1] < 2000 ? priceRange[1] : undefined,
+      sort: sortParam,
+    };
+
+    productAPI.getAll(params)
+      .then(({ data }) => { setProducts(data); setError(null); })
+      .catch(() => setError('Failed to load products.'))
+      .finally(() => setLoading(false));
+  }, [activeCategory, priceRange, activeSort]);
+
+  const filtered = products;
 
   return (
     <div className="bg-surface min-h-screen pt-24">
@@ -35,7 +59,7 @@ const ShopPage = () => {
             <div>
               <h1 className="text-5xl md:text-6xl font-headline font-bold tracking-tight">The Archive</h1>
               <p className="text-on-surface-variant mt-3 font-body">
-                {filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'} curated for the discerning eye
+                {loading ? 'Loading...' : `${filtered.length} ${filtered.length === 1 ? 'piece' : 'pieces'} curated for the discerning eye`}
               </p>
             </div>
             {/* Sort Dropdown */}
@@ -143,7 +167,16 @@ const ShopPage = () => {
 
           {/* ── Product Grid ── */}
           <div className="flex-grow">
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-32">
+                <p className="font-headline text-2xl text-on-surface-variant animate-pulse">Curating your selection...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-32">
+                <p className="font-headline text-2xl text-on-surface-variant mb-4">{error}</p>
+                <p className="text-xs text-on-surface-variant/60">Make sure the backend is running on port 8080</p>
+              </div>
+            ) : filtered.length === 0 ? (
               <div className="text-center py-32">
                 <p className="font-headline text-3xl mb-4 text-on-surface-variant">No pieces found</p>
                 <p className="text-on-surface-variant/60 mb-8">Try adjusting your filters</p>
